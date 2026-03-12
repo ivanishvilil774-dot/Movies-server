@@ -10,23 +10,6 @@ This project is a **Node.js + Express REST API** that allows users to **create, 
 Instead of a traditional database, it uses a **local JSON file** (`data/data.json`) for persistent storage.  
 Controllers handle all logic, routes define endpoints, and utilities manage file reading/writing.
 
----
-
-## Project Structure
-
-
-project-root/
-├─ controllers/
-│ └─ movie.controllers.js # Logic for all movie operations
-├─ routes/
-│ └─ movies.router.js # Defines REST API endpoints
-├─ utils/
-│ ├─ readFile.js # Reads JSON file
-│ └─ writeFile.js # Writes JSON file
-├─ data/
-│ └─ data.json # JSON database
-└─ server.js # Starts the Express server
-
 
 ---
 
