@@ -16,12 +16,16 @@ const getMovies = async (req, res) => {
     }
 }
 
-
 const getMovieById = async (req, res) => {
     try{
         const id = req.params.id
         const data = await readFile(DB_PATH)
         const movieId = data.find(movie => movie.id === id)
+
+        if(!movieId){
+            return res.status(404).json({message: "Movie not found"})
+        }
+
         res.status(200).json(movieId)
     }catch(e){
         res.status(500).json({message: e.message})
@@ -29,19 +33,31 @@ const getMovieById = async (req, res) => {
 }
 
 
-
 const addMovie = async (req, res ) => {
     try{
         const newMovie = req.body
+
+        // create date automatically
+        newMovie.createdAt = new Date().toISOString().split("T")[0]
+
         const data = await readFile(DB_PATH)
 
         if(data.find(movie => movie.id === newMovie.id)){
             return res.status(400).json({message: "Movie with this ID already exists"})
         }
 
+        if(!newMovie.image || newMovie.image.length === 0){
+            return res.status(400).json({message: "Image URL cannot be empty"})
+        }
+
         data.push(newMovie)
+
         await writeFile(DB_PATH, data)
-        res.status(200).json({message: "Movie added successfully"})
+
+        res.status(201).json({
+            message: "Movie added successfully",
+            movie: newMovie
+        })
 
     }catch(e){
         res.status(500).json({message: e.message})
@@ -67,8 +83,8 @@ const updateMovie = async (req, res) => {
 
         // Update movie
         data[movieIndex] = {
-            ...data[movieIndex],
-            ...updatedData
+            ...data[movieIndex], // take old data 
+            ...updatedData  // override with new data  
         }
 
         await writeFile(DB_PATH, data)
@@ -94,8 +110,8 @@ const deleteMovie = async (req, res) => {
         }
 
         // remove the movie and write updated data
-        data.splice(movieIndex, 1)
-        await writeFile(DB_PATH, data)
+        data.splice(movieIndex, 1) /// remove the movie at the found index
+        await writeFile(DB_PATH, data) 
         res.status(200).json({ message: "Movie deleted successfully" })
     }catch(e){
         res.status(500).json({message: e.message})

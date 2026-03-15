@@ -1,18 +1,101 @@
 [
   {
-    "id": "67",
-    "name": "gary poter",
-    "category": "fantastic",
-    "description": "gary poter is deaf",
+    "id": "1",
+    "name": "interstellar",
+    "category": "sci-fi",
+    "description": "A mission through space to save humanity.",
+    "image": "https://m.media-amazon.com/images/I/91vIHsL-zjL._AC_UF894,1000_QL80_.jpg",
     "rating": 10,
-    "createdAt": "2008-03-10"
+    "createdAt": "2014-11-07"
   },
   {
-    "id": "78",
-    "name": "interstellar",
-    "category": "fantastic",
-    "description": "gary poter is deaf",
+    "id": "2",
+    "name": "inception",
+    "category": "sci-fi",
+    "description": "A thief who enters dreams to steal secrets.",
+    "image": "https://m.media-amazon.com/images/I/912AErFSBHL.jpg",
+    "rating": 9,
+    "createdAt": "2010-07-16"
+  },
+  {
+    "id": "3",
+    "name": "the dark knight",
+    "category": "action",
+    "description": "Batman faces the Joker in Gotham.",
+    "image": "https://m.media-amazon.com/images/M/MV5BMDQ5MWU2YWUtNTQ4OC00Njk5LWI0NzctMjM4OGZiNmZmNGViXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
     "rating": 10,
-    "createdAt": "2008-03-10"
+    "createdAt": "2008-07-18"
+  },
+  {
+    "id": "4",
+    "name": "avatar",
+    "category": "fantasy",
+    "description": "Humans explore the alien world Pandora.",
+    "image": "https://m.media-amazon.com/images/M/MV5BZDYxY2I1OGMtN2Y4MS00ZmU1LTgyNDAtODA0MzAyYjI0N2Y2XkEyXkFqcGc@._V1_.jpg",
+    "rating": 8,
+    "createdAt": "2009-12-18"
+  },
+  {
+    "id": "5",
+    "name": "harry potter",
+    "category": "fantasy",
+    "description": "A young wizard discovers magic.",
+    "image": "https://static.posters.cz/image/750/132718.jpg",
+    "rating": 9,
+    "createdAt": "2001-11-16"
+  },
+  {
+    "id": "6",
+    "name": "the matrix",
+    "category": "sci-fi",
+    "description": "A hacker learns reality is a simulation.",
+    "image": "https://static.wikia.nocookie.net/matrix/images/5/56/The_Matrix_digital_release_cover.jpg/revision/latest/thumbnail/width/360/height/450?cb=20210908111245",
+    "rating": 10,
+    "createdAt": "1999-03-31"
+  },
+  {
+    "id": "7",
+    "name": "gladiator",
+    "category": "action",
+    "description": "A Roman general fights for revenge.",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDixvpPm-VsFZ8aNOyR95dZUguNNdy5NyfGg&s",
+    "rating": 9,
+    "createdAt": "2000-05-05"
+  },
+  {
+    "id": "8",
+    "name": "titanic",
+    "category": "romance",
+    "description": "A love story aboard the Titanic.",
+    "image": "https://public-website-assets.paramountpictures.com/paramount2025/s3fs-public/styles/poster_medium/public/titanic2012_en_800x1200.jpg?itok=lbdE3VIG",
+    "rating": 8,
+    "createdAt": "1997-12-19"
+  },
+  {
+    "id": "9",
+    "name": "the godfather",
+    "category": "crime",
+    "description": "Story of a powerful mafia family.",
+    "image": "https://m.media-amazon.com/images/M/MV5BNGEwYjgwOGQtYjg5ZS00Njc1LTk2ZGEtM2QwZWQ2NjdhZTE5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    "rating": 10,
+    "createdAt": "1972-03-24"
+  },
+  {
+    "id": "10",
+    "name": "pulp fiction",
+    "category": "crime",
+    "description": "Interconnected crime stories.",
+    "image": "https://www.crew-united.com/Media/Images/457/457734/457734.entity.jpg",
+    "rating": 9,
+    "createdAt": "1994-10-14"
+  },
+  {
+    "id": "11",
+    "name": "fight club",
+    "category": "drama",
+    "description": "An underground fight club changes lives.",
+    "image": "https://m.media-amazon.com/images/M/MV5BOTgyOGQ1NDItNGU3Ny00MjU3LTg2YWEtNmEyYjBiMjI1Y2M5XkEyXkFqcGc@._V1_QL75_UX190_CR0,2,190,281_.jpg",
+    "rating": 9,
+    "createdAt": "1999-10-15"
   }
 ]
