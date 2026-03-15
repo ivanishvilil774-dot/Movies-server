@@ -1,140 +1,413 @@
-# Movies Collection REST API
+Absolutely — here’s a clean `README.md` you can paste into your project.
+
+````md
+# Movies Server API
+
+A simple REST API built with **Node.js** and **Express** for managing a movies collection.  
+This project uses a local **JSON file** as the database instead of MongoDB or SQL.
 
 ## Project Theme
-**Movies Collection** – a custom-themed REST API to manage a collection of movies using a JSON file as the database.
 
----
+**Movies Collection**
 
-## Project Overview
-This project is a **Node.js + Express REST API** that allows users to **create, read, update, and delete movies**.  
-Instead of a traditional database, it uses a **local JSON file** (`data/data.json`) for persistent storage.  
-Controllers handle all logic, routes define endpoints, and utilities manage file reading/writing.
+This API allows users to:
 
+- add a new movie
+- get all movies
+- get a single movie by ID
+- update a movie
+- delete a movie
 
----
+## Technologies Used
 
-## API Endpoints
+- Node.js
+- Express.js
+- JSON file as database
+- File system (`fs`) for reading and writing data
 
-| Method | Endpoint            | Description                          | Request Body (JSON)                                                                 |
-|--------|-------------------|--------------------------------------|-----------------------------------------------------------------------------------|
-| GET    | `/movies`          | Retrieve all movies                   | N/A                                                                               |
-| GET    | `/movies/:id`      | Retrieve a single movie by ID         | N/A                                                                               |
-| POST   | `/movies`          | Add a new movie                       | `{ "id": "string", "name": "string", "category": "string", "description": "string", "rating": number, "createdAt": "YYYY-MM-DD" }` |
-| PUT    | `/movies/:id`      | Update an existing movie              | Partial or full movie object (ID cannot be updated)                               |
-| DELETE | `/movies/:id`      | Delete a movie by ID                  | N/A                                                                               |
+## Project Structure
 
----
+```bash
+Movies-server/
+│
+├── Controllers/
+│   └── movie.controllers.js
+│
+├── Data/
+│   └── data.json
+│
+├── Routers/
+│   └── movies.router.js
+│
+├── Utils/
+│   ├── readfile.js
+│   └── writefile.js
+│
+├── server.js
+├── package.json
+└── README.md
+````
 
-## Example Requests
+## Features
 
-**Add a movie (POST /movies)**
+* Express server running on a configurable port
+* JSON file database stored inside the project
+* Utility functions for reading and writing data
+* Full CRUD operations
+* Basic validation
+* Error handling with proper HTTP status codes
+
+## Movie Object Structure
+
+Each movie contains fields like:
 
 ```json
 {
-  "id": "101",
+  "id": "1",
   "name": "Inception",
-  "category": "sci-fi",
-  "description": "Mind-bending thriller",
+  "category": "Sci-Fi",
+  "description": "A mind-bending thriller about dreams within dreams.",
+  "image": "https://example.com/inception.jpg",
   "rating": 9,
-  "createdAt": "2010-07-16"
+  "createdAt": "2026-03-15"
 }
+```
 
-Update a movie (PUT /movies/101)
+## Installation
 
-{
-  "rating": 10,
-  "description": "Updated description for Inception"
-}
+Clone the repository:
 
-Response Example (GET /movies/101)
+```bash
+git clone https://github.com/ivanishvilil774-dot/Movies-server.git
+```
 
-{
-  "id": "101",
-  "name": "Inception",
-  "category": "sci-fi",
-  "description": "Updated description for Inception",
-  "rating": 10,
-  "createdAt": "2010-07-16"
-}
-Validation & Error Handling
+Move into the project folder:
 
-Required fields (name, category, description, rating, createdAt) are validated.
+```bash
+cd Movies-server
+```
 
-rating must be a number; createdAt must be a valid date.
+Install dependencies:
 
-Duplicate movie IDs are not allowed.
-
-Updating a movie cannot change its ID.
-
-Returns proper HTTP status codes:
-
-200 OK → Successful GET, PUT, DELETE
-
-201 Created → Successful POST
-
-400 Bad Request → Validation errors
-
-404 Not Found → Movie not found
-
-500 Internal Server Error → File read/write or server error
-
-How to Run
-
-Install dependencies
-
+```bash
 npm install
+```
 
-Create .env file (optional)
+## Running the Server
 
-PORT=3000
+Start the server with:
 
-Start the server
-
+```bash
 node server.js
-# or
+```
+
+If you use nodemon:
+
+```bash
 nodemon server.js
+```
 
-Test API
-Use Postman, Thunder Client, or Insomnia to test endpoints.
+The server runs on:
 
-JSON Database
+```bash
+http://localhost:3000
+```
 
-Located at data/data.json. Example structure:
+Or on the port set in your environment variables.
 
+## API Endpoints
+
+### 1. Get All Movies
+
+**GET** `/movies`
+
+Returns all movies from the JSON database.
+
+#### Example Request
+
+```http
+GET /movies
+```
+
+#### Example Response
+
+```json
 [
   {
-    "id": "67",
-    "name": "Harry Potter",
-    "category": "fantasy",
-    "description": "Wizarding adventures",
-    "rating": 10,
-    "createdAt": "2008-03-10"
-  },
-  {
-    "id": "78",
-    "name": "Interstellar",
-    "category": "sci-fi",
-    "description": "Space exploration epic",
-    "rating": 10,
-    "createdAt": "2014-11-07"
+    "id": "1",
+    "name": "Inception",
+    "category": "Sci-Fi",
+    "description": "A mind-bending thriller about dreams within dreams.",
+    "image": "https://example.com/inception.jpg",
+    "rating": 9,
+    "createdAt": "2026-03-15"
   }
 ]
-Technologies Used
+```
 
-Node.js – Server runtime
+---
 
-Express – Web framework for REST API
+### 2. Get Movie by ID
 
-JSON File – Database for persistent storage
+**GET** `/movies/:id`
 
-fs/promises – File operations (read/write)
+Returns a single movie by its ID.
 
-dotenv – Optional environment configuration
+#### Example Request
 
-Notes
+```http
+GET /movies/1
+```
 
-All controllers use utility functions to read/write JSON files.
+#### Success Response
 
-The API is fully RESTful.
+```json
+{
+  "id": "1",
+  "name": "Inception",
+  "category": "Sci-Fi",
+  "description": "A mind-bending thriller about dreams within dreams.",
+  "image": "https://example.com/inception.jpg",
+  "rating": 9,
+  "createdAt": "2026-03-15"
+}
+```
 
-This project follows the assignment requirement of no external database.
+#### Error Response
+
+```json
+{
+  "message": "Movie not found"
+}
+```
+
+---
+
+### 3. Add New Movie
+
+**POST** `/movies`
+
+Adds a new movie to the JSON database.
+
+#### Example Request Body
+
+```json
+{
+  "id": "2",
+  "name": "Interstellar",
+  "category": "Sci-Fi",
+  "description": "A journey through space and time to save humanity.",
+  "image": "https://example.com/interstellar.jpg",
+  "rating": 10
+}
+```
+
+#### Success Response
+
+```json
+{
+  "message": "Movie added successfully",
+  "movie": {
+    "id": "2",
+    "name": "Interstellar",
+    "category": "Sci-Fi",
+    "description": "A journey through space and time to save humanity.",
+    "image": "https://example.com/interstellar.jpg",
+    "rating": 10,
+    "createdAt": "2026-03-15"
+  }
+}
+```
+
+#### Error Responses
+
+```json
+{
+  "message": "All required fields must be provided"
+}
+```
+
+```json
+{
+  "message": "Name, category, description, and image must be strings"
+}
+```
+
+```json
+{
+  "message": "Rating must be a number"
+}
+```
+
+```json
+{
+  "message": "Movie with this ID already exists"
+}
+```
+
+---
+
+### 4. Update Movie
+
+**PUT** `/movies/:id`
+
+Updates an existing movie by ID.
+
+#### Example Request
+
+```http
+PUT /movies/2
+```
+
+#### Example Request Body
+
+```json
+{
+  "name": "Interstellar Updated",
+  "rating": 9
+}
+```
+
+#### Success Response
+
+```json
+{
+  "message": "Movie updated successfully",
+  "movie": {
+    "id": "2",
+    "name": "Interstellar Updated",
+    "category": "Sci-Fi",
+    "description": "A journey through space and time to save humanity.",
+    "image": "https://example.com/interstellar.jpg",
+    "rating": 9,
+    "createdAt": "2026-03-15"
+  }
+}
+```
+
+#### Error Responses
+
+```json
+{
+  "message": "Movie not found"
+}
+```
+
+```json
+{
+  "message": "ID cannot be updated"
+}
+```
+
+```json
+{
+  "message": "Rating must be a number"
+}
+```
+
+```json
+{
+  "message": "name must be a non-empty string"
+}
+```
+
+---
+
+### 5. Delete Movie
+
+**DELETE** `/movies/:id`
+
+Deletes a movie by ID.
+
+#### Example Request
+
+```http
+DELETE /movies/2
+```
+
+#### Success Response
+
+```json
+{
+  "message": "Movie deleted successfully"
+}
+```
+
+#### Error Response
+
+```json
+{
+  "message": "Movie not found"
+}
+```
+
+## Validation Rules
+
+The API validates the following:
+
+* `id` is required
+* `name` is required
+* `category` is required
+* `description` is required
+* `image` is required
+* `rating` is required
+* `name`, `category`, `description`, and `image` must be strings
+* `rating` must be a number
+* movie `id` must be unique
+* movie `id` cannot be changed during update
+* updated string fields must not be empty
+
+## Error Handling
+
+The API handles common errors such as:
+
+* movie not found
+* invalid request body
+* invalid field types
+* duplicate movie ID
+* server or file read/write errors
+
+HTTP status codes used:
+
+* `200` — Success
+* `201` — Created successfully
+* `400` — Bad request
+* `404` — Not found
+* `500` — Internal server error
+
+## Testing the API
+
+You can test the endpoints using:
+
+* Postman
+* Thunder Client
+* Insomnia
+
+## Example Base URL
+
+```bash
+http://localhost:3000/movies
+```
+
+## Future Improvements
+
+Possible improvements for this project:
+
+* add search and filtering
+* add sorting by rating or date
+* add pagination
+* improve validation even more
+* add automated tests
+
+## Author
+
+Created by Ivanishvili
+
+```
+
+A couple of fixes before you paste it:
+- change `Created by Ivanishvili` to your real name if you want
+- if your server uses a different port or route prefix, update that in the README
+
+I can also make you a **shorter, more professional GitHub-style README** if you want something cleaner.
+```
