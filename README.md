@@ -401,13 +401,5 @@ Possible improvements for this project:
 
 ## Author
 
-Created by Ivanishvili
+Created by Luka Ivanishvili
 
-```
-
-A couple of fixes before you paste it:
-- change `Created by Ivanishvili` to your real name if you want
-- if your server uses a different port or route prefix, update that in the README
-
-I can also make you a **shorter, more professional GitHub-style README** if you want something cleaner.
-```
