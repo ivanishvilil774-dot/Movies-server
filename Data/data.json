@@ -36,15 +36,6 @@
     "createdAt": "2009-12-18"
   },
   {
-    "id": "5",
-    "name": "harry potter",
-    "category": "fantasy",
-    "description": "A young wizard discovers magic.",
-    "image": "https://static.posters.cz/image/750/132718.jpg",
-    "rating": 9,
-    "createdAt": "2001-11-16"
-  },
-  {
     "id": "6",
     "name": "the matrix",
     "category": "sci-fi",

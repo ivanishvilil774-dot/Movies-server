@@ -1,7 +1,6 @@
 const path = require("path")
 const readFile = require("../Utils/readfile")
 const writeFile = require("../Utils/writefile")
-const { read } = require("fs")
 
 // use file path instead of importing JSON directly
 const DB_PATH = path.join(__dirname, "../Data/data.json")
@@ -32,10 +31,37 @@ const getMovieById = async (req, res) => {
     }
 }
 
-
 const addMovie = async (req, res ) => {
     try{
         const newMovie = req.body
+
+        if(
+            !newMovie.id ||
+            !newMovie.name ||
+            !newMovie.category ||
+            !newMovie.description ||
+            !newMovie.image ||
+            newMovie.rating === undefined
+        ){
+            return res.status(400).json({message:"All required fields must be provided"})
+        }
+
+        if(
+            typeof newMovie.name !== "string" ||
+            typeof newMovie.category !== "string" ||
+            typeof newMovie.description !== "string" ||
+            typeof newMovie.image !== "string"
+        ){
+            return res.status(400).json({message:"Name, category, description, and image must be strings"})
+        }
+
+        if(newMovie.name.trim() === "" || newMovie.category.trim() === "" || newMovie.description.trim() === "" || newMovie.image.trim() === ""){
+            return res.status(400).json({message:"Name, category, description, and image cannot be empty"})
+        }
+
+        if(typeof newMovie.rating !== "number"){
+            return res.status(400).json({message:"Rating must be a number"})
+        }
 
         // create date automatically
         newMovie.createdAt = new Date().toISOString().split("T")[0]
@@ -43,26 +69,23 @@ const addMovie = async (req, res ) => {
         const data = await readFile(DB_PATH)
 
         if(data.find(movie => movie.id === newMovie.id)){
-            return res.status(400).json({message: "Movie with this ID already exists"})
-        }
-
-        if(!newMovie.image || newMovie.image.length === 0){
-            return res.status(400).json({message: "Image URL cannot be empty"})
+            return res.status(400).json({message:"Movie with this ID already exists"})
         }
 
         data.push(newMovie)
 
-        await writeFile(DB_PATH, data)
+        await writeFile(DB_PATH,data)
 
         res.status(201).json({
-            message: "Movie added successfully",
-            movie: newMovie
+            message:"Movie added successfully",
+            movie:newMovie
         })
 
     }catch(e){
-        res.status(500).json({message: e.message})
+        res.status(500).json({message:e.message})
     }
 }
+
 
 const updateMovie = async (req, res) => {
     try {
@@ -72,19 +95,38 @@ const updateMovie = async (req, res) => {
 
         const movieIndex = data.findIndex(movie => movie.id === id)
 
-        if(movieIndex === -1){
-            return res.status(404).json({message: "Movie not found"})
+        if (movieIndex === -1) {
+            return res.status(404).json({ message: "Movie not found" })
         }
 
-        // Prevent ID update
-        if(updatedData.id && updatedData.id !== id){
-            return res.status(400).json({message: "ID cannot be updated"})
+        if (updatedData.id !== undefined && updatedData.id !== id) {
+            return res.status(400).json({ message: "ID cannot be updated" })
         }
 
-        // Update movie
+        if (updatedData.rating !== undefined && typeof updatedData.rating !== "number") {
+            return res.status(400).json({ message: "Rating must be a number" })
+        }
+
+        const stringFields = ["name", "category", "description", "image", "createdAt"]
+
+        for (const field of stringFields) {
+            if (updatedData[field] !== undefined) {
+                if (typeof updatedData[field] !== "string" || updatedData[field].trim() === "") {
+                    return res.status(400).json({
+                        message: `${field} must be a non-empty string`
+                    })
+                }
+            }
+        }
+
+        // if noting was Updated, return an error
+        if (Object.keys(updatedData).length === 0) {
+            return res.status(400).json({ message: "No data provided for update" })
+        }
+
         data[movieIndex] = {
-            ...data[movieIndex], // take old data 
-            ...updatedData  // override with new data  
+            ...data[movieIndex],
+            ...updatedData
         }
 
         await writeFile(DB_PATH, data)
@@ -93,9 +135,8 @@ const updateMovie = async (req, res) => {
             message: "Movie updated successfully",
             movie: data[movieIndex]
         })
-
-    } catch(e){
-        res.status(500).json({message: e.message})
+    } catch (e) {
+        res.status(500).json({ message: e.message })
     }
 }
 
@@ -112,7 +153,9 @@ const deleteMovie = async (req, res) => {
         // remove the movie and write updated data
         data.splice(movieIndex, 1) /// remove the movie at the found index
         await writeFile(DB_PATH, data) 
-        res.status(200).json({ message: "Movie deleted successfully" })
+        res.status(200).json({
+            message: "Movie deleted successfully",
+            })
     }catch(e){
         res.status(500).json({message: e.message})
     }
