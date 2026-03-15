@@ -1,4 +1,4 @@
-Absolutely — here’s a clean `README.md` you can paste into your project.
+
 
 ````md
 # Movies Server API
