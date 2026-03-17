@@ -1,405 +1,259 @@
+# Movie API
 
+A simple REST API built with **Node.js** and **Express** for managing a movie database stored in a local JSON file.
 
-````md
-# Movies Server API
+## Features
 
-A simple REST API built with **Node.js** and **Express** for managing a movies collection.  
-This project uses a local **JSON file** as the database instead of MongoDB or SQL.
-
-## Project Theme
-
-**Movies Collection**
-
-This API allows users to:
-
-- add a new movie
-- get all movies
-- get a single movie by ID
-- update a movie
-- delete a movie
-
-## Technologies Used
-
-- Node.js
-- Express.js
-- JSON file as database
-- File system (`fs`) for reading and writing data
+- Get all movies
+- Get a movie by ID
+- Add a new movie
+- Update an existing movie
+- Delete a movie
+- Basic validation for required fields and data types
+- Data stored in a local `data.json` file
 
 ## Project Structure
 
 ```bash
-Movies-server/
+project-folder/
 │
 ├── Controllers/
-│   └── movie.controllers.js
+│   └── movieController.js
 │
 ├── Data/
 │   └── data.json
-│
-├── Routers/
-│   └── movies.router.js
 │
 ├── Utils/
 │   ├── readfile.js
 │   └── writefile.js
 │
-├── server.js
+├── Routes/
+│   └── movieRoutes.js
+│
+├── app.js
 ├── package.json
 └── README.md
-````
+Movie Data Structure
 
-## Features
+Each movie object contains fields like:
 
-* Express server running on a configurable port
-* JSON file database stored inside the project
-* Utility functions for reading and writing data
-* Full CRUD operations
-* Basic validation
-* Error handling with proper HTTP status codes
-
-## Movie Object Structure
-
-Each movie contains fields like:
-
-```json
 {
   "id": "1",
-  "name": "Inception",
-  "category": "Sci-Fi",
-  "description": "A mind-bending thriller about dreams within dreams.",
-  "image": "https://example.com/inception.jpg",
-  "rating": 9,
-  "createdAt": "2026-03-15"
+  "title": "Interstellar",
+  "slug": "interstellar",
+  "genres": ["Sci-Fi", "Adventure", "Drama"],
+  "description": "A team of explorers travel through a wormhole in space to ensure humanity's survival.",
+  "posterUrl": "https://example.com/poster.jpg",
+  "bannerUrl": "https://example.com/banner.jpg",
+  "releaseDate": "2014-11-07",
+  "duration": 169,
+  "director": "Christopher Nolan",
+  "cast": ["Matthew McConaughey", "Anne Hathaway", "Jessica Chastain"],
+  "language": "English",
+  "country": "USA",
+  "imdbRating": 8.7,
+  "userRating": 10,
+  "ageRating": "PG-13",
+  "status": "released",
+  "featured": true,
+  "trailerUrl": "https://www.youtube.com/watch?v=zSWdZVtXT7E",
+  "createdAt": "2026-03-17T12:00:00Z",
+  "updatedAt": "2026-03-17T12:00:00Z"
 }
-```
-
-## Installation
+Installation
 
 Clone the repository:
 
-```bash
-git clone https://github.com/ivanishvilil774-dot/Movies-server.git
-```
+git clone <your-repo-link>
 
-Move into the project folder:
+Navigate into the project folder:
 
-```bash
-cd Movies-server
-```
+cd <project-folder>
 
 Install dependencies:
 
-```bash
 npm install
-```
 
-## Running the Server
+Start the server:
 
-Start the server with:
+npm start
 
-```bash
-node server.js
-```
+Or if you use nodemon:
 
-If you use nodemon:
+npm run dev
+API Endpoints
+1. Get all movies
 
-```bash
-nodemon server.js
-```
-
-The server runs on:
-
-```bash
-http://localhost:3000
-```
-
-Or on the port set in your environment variables.
-
-## API Endpoints
-
-### 1. Get All Movies
-
-**GET** `/movies`
-
-Returns all movies from the JSON database.
-
-#### Example Request
-
-```http
 GET /movies
-```
 
-#### Example Response
+Returns all movies in the database.
 
-```json
+Response
 [
   {
     "id": "1",
-    "name": "Inception",
-    "category": "Sci-Fi",
-    "description": "A mind-bending thriller about dreams within dreams.",
-    "image": "https://example.com/inception.jpg",
-    "rating": 9,
-    "createdAt": "2026-03-15"
+    "title": "Interstellar"
   }
 ]
-```
+2. Get movie by ID
 
----
-
-### 2. Get Movie by ID
-
-**GET** `/movies/:id`
+GET /movies/:id
 
 Returns a single movie by its ID.
 
-#### Example Request
-
-```http
+Example
 GET /movies/1
-```
-
-#### Success Response
-
-```json
+Response
 {
   "id": "1",
-  "name": "Inception",
-  "category": "Sci-Fi",
-  "description": "A mind-bending thriller about dreams within dreams.",
-  "image": "https://example.com/inception.jpg",
-  "rating": 9,
-  "createdAt": "2026-03-15"
+  "title": "Interstellar"
 }
-```
+3. Add a new movie
 
-#### Error Response
+POST /movies
 
-```json
+Adds a new movie to the database.
+
+Required fields
+
+id
+
+title
+
+slug
+
+genres
+
+description
+
+posterUrl
+
+releaseDate
+
+userRating
+
+Example request body
 {
-  "message": "Movie not found"
+  "id": "6",
+  "title": "Titanic",
+  "slug": "titanic",
+  "genres": ["Romance", "Drama"],
+  "description": "A love story aboard the Titanic.",
+  "posterUrl": "https://example.com/titanic.jpg",
+  "releaseDate": "1997-12-19",
+  "userRating": 8
 }
-```
-
----
-
-### 3. Add New Movie
-
-**POST** `/movies`
-
-Adds a new movie to the JSON database.
-
-#### Example Request Body
-
-```json
-{
-  "id": "2",
-  "name": "Interstellar",
-  "category": "Sci-Fi",
-  "description": "A journey through space and time to save humanity.",
-  "image": "https://example.com/interstellar.jpg",
-  "rating": 10
-}
-```
-
-#### Success Response
-
-```json
+Success response
 {
   "message": "Movie added successfully",
   "movie": {
-    "id": "2",
-    "name": "Interstellar",
-    "category": "Sci-Fi",
-    "description": "A journey through space and time to save humanity.",
-    "image": "https://example.com/interstellar.jpg",
-    "rating": 10,
-    "createdAt": "2026-03-15"
+    "id": "6",
+    "title": "Titanic"
   }
 }
-```
+4. Update a movie
 
-#### Error Responses
+PUT /movies/:id
 
-```json
+Updates an existing movie.
+
+Example
+PUT /movies/1
+Example request body
 {
-  "message": "All required fields must be provided"
+  "title": "Interstellar Updated",
+  "userRating": 9
 }
-```
-
-```json
-{
-  "message": "Name, category, description, and image must be strings"
-}
-```
-
-```json
-{
-  "message": "Rating must be a number"
-}
-```
-
-```json
-{
-  "message": "Movie with this ID already exists"
-}
-```
-
----
-
-### 4. Update Movie
-
-**PUT** `/movies/:id`
-
-Updates an existing movie by ID.
-
-#### Example Request
-
-```http
-PUT /movies/2
-```
-
-#### Example Request Body
-
-```json
-{
-  "name": "Interstellar Updated",
-  "rating": 9
-}
-```
-
-#### Success Response
-
-```json
+Success response
 {
   "message": "Movie updated successfully",
   "movie": {
-    "id": "2",
-    "name": "Interstellar Updated",
-    "category": "Sci-Fi",
-    "description": "A journey through space and time to save humanity.",
-    "image": "https://example.com/interstellar.jpg",
-    "rating": 9,
-    "createdAt": "2026-03-15"
+    "id": "1",
+    "title": "Interstellar Updated"
   }
 }
-```
+5. Delete a movie
 
-#### Error Responses
-
-```json
-{
-  "message": "Movie not found"
-}
-```
-
-```json
-{
-  "message": "ID cannot be updated"
-}
-```
-
-```json
-{
-  "message": "Rating must be a number"
-}
-```
-
-```json
-{
-  "message": "name must be a non-empty string"
-}
-```
-
----
-
-### 5. Delete Movie
-
-**DELETE** `/movies/:id`
+DELETE /movies/:id
 
 Deletes a movie by ID.
 
-#### Example Request
-
-```http
-DELETE /movies/2
-```
-
-#### Success Response
-
-```json
+Example
+DELETE /movies/1
+Success response
 {
   "message": "Movie deleted successfully"
 }
-```
+Validation Rules
 
-#### Error Response
+The API includes basic validation:
 
-```json
+Required fields must be present when adding a movie
+
+genres must be an array
+
+userRating must be a number
+
+String fields must be non-empty strings
+
+Movie id cannot be updated
+
+Duplicate movie IDs are not allowed
+
+Error Handling
+
+Possible error responses include:
+
+400 Bad Request
+{
+  "message": "Required fields missing"
+}
+{
+  "message": "Invalid field types"
+}
+{
+  "message": "Genres must be an array"
+}
+404 Not Found
 {
   "message": "Movie not found"
 }
-```
+500 Internal Server Error
+{
+  "message": "Something went wrong"
+}
+Technologies Used
 
-## Validation Rules
+Node.js
 
-The API validates the following:
+Express.js
 
-* `id` is required
-* `name` is required
-* `category` is required
-* `description` is required
-* `image` is required
-* `rating` is required
-* `name`, `category`, `description`, and `image` must be strings
-* `rating` must be a number
-* movie `id` must be unique
-* movie `id` cannot be changed during update
-* updated string fields must not be empty
+File System (fs)
 
-## Error Handling
+JSON for data storage
 
-The API handles common errors such as:
+Notes
 
-* movie not found
-* invalid request body
-* invalid field types
-* duplicate movie ID
-* server or file read/write errors
+This project uses a local JSON file as a database
 
-HTTP status codes used:
+It is good for learning CRUD operations
 
-* `200` — Success
-* `201` — Created successfully
-* `400` — Bad request
-* `404` — Not found
-* `500` — Internal server error
+For production-level apps, a real database like MongoDB or PostgreSQL is recommended
 
-## Testing the API
+Future Improvements
 
-You can test the endpoints using:
+Add search by title or genre
 
-* Postman
-* Thunder Client
-* Insomnia
+Add pagination
 
-## Example Base URL
+Add sorting by rating or release date
 
-```bash
-http://localhost:3000/movies
-```
+Add authentication
 
-## Future Improvements
+Use MongoDB instead of a JSON file
 
-Possible improvements for this project:
+Add better validation with Joi or Express Validator
 
-* add search and filtering
-* add sorting by rating or date
-* add pagination
-* improve validation even more
-* add automated tests
-
-## Author
+Author
 
 Created by Luka Ivanishvili
-
