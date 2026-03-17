@@ -1,3 +1,3 @@
 node_modules/
 .env
-./Data/data.json
+Data/data.json
