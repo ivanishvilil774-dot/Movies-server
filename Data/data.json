@@ -1,92 +1,150 @@
 [
   {
     "id": "1",
-    "name": "interstellar",
-    "category": "sci-fi",
-    "description": "A mission through space to save humanity.",
-    "image": "https://m.media-amazon.com/images/I/91vIHsL-zjL._AC_UF894,1000_QL80_.jpg",
-    "rating": 10,
-    "createdAt": "2014-11-07"
+    "title": "Interstellar",
+    "slug": "interstellar",
+    "genres": [
+      "Sci-Fi",
+      "Adventure",
+      "Drama"
+    ],
+    "description": "A team of explorers travel through a wormhole in space to ensure humanity's survival.",
+    "posterUrl": "https://m.media-amazon.com/images/I/91vIHsL-zjL._AC_UF894,1000_QL80_.jpg",
+    "bannerUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3G7v0v1Zj-amNdX5Ve8h3R_68mukwcWT9ZQ&s",
+    "releaseDate": "2014-11-07",
+    "duration": 169,
+    "director": "Christopher Nolan",
+    "cast": [
+      "Matthew McConaughey",
+      "Anne Hathaway",
+      "Jessica Chastain"
+    ],
+    "language": "English",
+    "country": "USA",
+    "imdbRating": 8.7,
+    "userRating": 10,
+    "ageRating": "PG-13",
+    "status": "released",
+    "featured": true,
+    "trailerUrl": "https://www.youtube.com/watch?v=zSWdZVtXT7E",
+    "createdAt": "2026-03-17T12:00:00Z",
+    "updatedAt": "2026-03-17T12:00:00Z"
   },
   {
     "id": "2",
-    "name": "inception",
-    "category": "sci-fi",
-    "description": "A thief who enters dreams to steal secrets.",
-    "image": "https://m.media-amazon.com/images/I/912AErFSBHL.jpg",
-    "rating": 9,
-    "createdAt": "2010-07-16"
+    "title": "Inception",
+    "slug": "inception",
+    "genres": [
+      "Sci-Fi",
+      "Action"
+    ],
+    "description": "A thief who enters people's dreams to steal secrets from their subconscious.",
+    "posterUrl": "https://m.media-amazon.com/images/I/912AErFSBHL.jpg",
+    "bannerUrl": "https://collider.com/wp-content/uploads/inception_movie_poster_banner_03.jpg",
+    "releaseDate": "2010-07-16",
+    "duration": 148,
+    "director": "Christopher Nolan",
+    "cast": [
+      "Leonardo DiCaprio",
+      "Joseph Gordon-Levitt"
+    ],
+    "language": "English",
+    "country": "USA",
+    "imdbRating": 8.8,
+    "userRating": 9,
+    "ageRating": "PG-13",
+    "status": "released",
+    "featured": true,
+    "trailerUrl": "https://www.youtube.com/watch?v=YoHD9XEInc0",
+    "createdAt": "2026-03-17T12:00:00Z",
+    "updatedAt": "2026-03-17T12:00:00Z"
   },
   {
     "id": "3",
-    "name": "the dark knight",
-    "category": "action",
-    "description": "Batman faces the Joker in Gotham.",
-    "image": "https://m.media-amazon.com/images/M/MV5BMDQ5MWU2YWUtNTQ4OC00Njk5LWI0NzctMjM4OGZiNmZmNGViXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-    "rating": 10,
-    "createdAt": "2008-07-18"
+    "title": "The Dark Knight",
+    "slug": "the-dark-knight",
+    "genres": [
+      "Action",
+      "Crime",
+      "Drama"
+    ],
+    "description": "Batman faces the Joker, a criminal mastermind who plunges Gotham into chaos.",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BMDQ5MWU2YWUtNTQ4OC00Njk5LWI0NzctMjM4OGZiNmZmNGViXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    "bannerUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXwJZKQiIULwtNiKIV8waiSZlBX0hgDuDoRQ&s",
+    "releaseDate": "2008-07-18",
+    "duration": 152,
+    "director": "Christopher Nolan",
+    "cast": [
+      "Christian Bale",
+      "Heath Ledger"
+    ],
+    "language": "English",
+    "country": "USA",
+    "imdbRating": 9,
+    "userRating": 10,
+    "ageRating": "PG-13",
+    "status": "released",
+    "featured": true,
+    "trailerUrl": "https://www.youtube.com/watch?v=EXeTwQWrcwY",
+    "createdAt": "2026-03-17T12:00:00Z",
+    "updatedAt": "2026-03-17T12:00:00Z"
   },
   {
     "id": "4",
-    "name": "avatar",
-    "category": "fantasy",
-    "description": "Humans explore the alien world Pandora.",
-    "image": "https://m.media-amazon.com/images/M/MV5BZDYxY2I1OGMtN2Y4MS00ZmU1LTgyNDAtODA0MzAyYjI0N2Y2XkEyXkFqcGc@._V1_.jpg",
-    "rating": 8,
-    "createdAt": "2009-12-18"
+    "title": "Avatar",
+    "slug": "avatar",
+    "genres": [
+      "Sci-Fi",
+      "Fantasy"
+    ],
+    "description": "Humans explore the alien world of Pandora and clash with its native inhabitants.",
+    "posterUrl": "https://m.media-amazon.com/images/M/MV5BZDYxY2I1OGMtN2Y4MS00ZmU1LTgyNDAtODA0MzAyYjI0N2Y2XkEyXkFqcGc@._V1_.jpg",
+    "bannerUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmT8LOeUb54tCf6vCNbCUVj7kARxOG3DwmyQ&s",
+    "releaseDate": "2009-12-18",
+    "duration": 162,
+    "director": "James Cameron",
+    "cast": [
+      "Sam Worthington",
+      "Zoe Saldana"
+    ],
+    "language": "English",
+    "country": "USA",
+    "imdbRating": 7.9,
+    "userRating": 8,
+    "ageRating": "PG-13",
+    "status": "released",
+    "featured": false,
+    "trailerUrl": "https://www.youtube.com/watch?v=5PSNL1qE6VY",
+    "createdAt": "2026-03-17T12:00:00Z",
+    "updatedAt": "2026-03-17T12:00:00Z"
   },
   {
-    "id": "6",
-    "name": "the matrix",
-    "category": "sci-fi",
-    "description": "A hacker learns reality is a simulation.",
-    "image": "https://static.wikia.nocookie.net/matrix/images/5/56/The_Matrix_digital_release_cover.jpg/revision/latest/thumbnail/width/360/height/450?cb=20210908111245",
-    "rating": 10,
-    "createdAt": "1999-03-31"
-  },
-  {
-    "id": "7",
-    "name": "gladiator",
-    "category": "action",
-    "description": "A Roman general fights for revenge.",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDixvpPm-VsFZ8aNOyR95dZUguNNdy5NyfGg&s",
-    "rating": 9,
-    "createdAt": "2000-05-05"
-  },
-  {
-    "id": "8",
-    "name": "titanic",
-    "category": "romance",
-    "description": "A love story aboard the Titanic.",
-    "image": "https://public-website-assets.paramountpictures.com/paramount2025/s3fs-public/styles/poster_medium/public/titanic2012_en_800x1200.jpg?itok=lbdE3VIG",
-    "rating": 8,
-    "createdAt": "1997-12-19"
-  },
-  {
-    "id": "9",
-    "name": "the godfather",
-    "category": "crime",
-    "description": "Story of a powerful mafia family.",
-    "image": "https://m.media-amazon.com/images/M/MV5BNGEwYjgwOGQtYjg5ZS00Njc1LTk2ZGEtM2QwZWQ2NjdhZTE5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-    "rating": 10,
-    "createdAt": "1972-03-24"
-  },
-  {
-    "id": "10",
-    "name": "pulp fiction",
-    "category": "crime",
-    "description": "Interconnected crime stories.",
-    "image": "https://www.crew-united.com/Media/Images/457/457734/457734.entity.jpg",
-    "rating": 9,
-    "createdAt": "1994-10-14"
-  },
-  {
-    "id": "11",
-    "name": "fight club",
-    "category": "drama",
-    "description": "An underground fight club changes lives.",
-    "image": "https://m.media-amazon.com/images/M/MV5BOTgyOGQ1NDItNGU3Ny00MjU3LTg2YWEtNmEyYjBiMjI1Y2M5XkEyXkFqcGc@._V1_QL75_UX190_CR0,2,190,281_.jpg",
-    "rating": 9,
-    "createdAt": "1999-10-15"
+    "id": "5",
+    "title": "The Matrix",
+    "slug": "the-matrix",
+    "genres": [
+      "Sci-Fi",
+      "Action"
+    ],
+    "description": "A hacker discovers reality is actually a simulated world controlled by machines.",
+    "posterUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/d/db/The_Matrix.png/250px-The_Matrix.png",
+    "bannerUrl": "https://static.posters.cz/image/hp/69061.jpg",
+    "releaseDate": "1999-03-31",
+    "duration": 136,
+    "director": "The Wachowskis",
+    "cast": [
+      "Keanu Reeves",
+      "Laurence Fishburne"
+    ],
+    "language": "English",
+    "country": "USA",
+    "imdbRating": 8.7,
+    "userRating": 10,
+    "ageRating": "R",
+    "status": "released",
+    "featured": false,
+    "trailerUrl": "https://www.youtube.com/watch?v=vKQi3bBA1y8",
+    "createdAt": "2026-03-17T12:00:00Z",
+    "updatedAt": "2026-03-17T12:00:00Z"
   }
 ]

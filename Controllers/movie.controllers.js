@@ -2,12 +2,10 @@ const path = require("path")
 const readFile = require("../Utils/readfile")
 const writeFile = require("../Utils/writefile")
 
-// use file path instead of importing JSON directly
 const DB_PATH = path.join(__dirname, "../Data/data.json")
 
 const getMovies = async (req, res) => {
     try{
-        // pass the path string to readFile so fs.readFile works correctly
         const data = await readFile(DB_PATH)
         res.status(200).json(data)
     }catch(e){
@@ -19,13 +17,15 @@ const getMovieById = async (req, res) => {
     try{
         const id = req.params.id
         const data = await readFile(DB_PATH)
-        const movieId = data.find(movie => movie.id === id)
 
-        if(!movieId){
+        const movie = data.find(movie => movie.id === id)
+
+        if(!movie){
             return res.status(404).json({message: "Movie not found"})
         }
 
-        res.status(200).json(movieId)
+        res.status(200).json(movie)
+
     }catch(e){
         res.status(500).json({message: e.message})
     }
@@ -33,38 +33,38 @@ const getMovieById = async (req, res) => {
 
 const addMovie = async (req, res ) => {
     try{
+
         const newMovie = req.body
 
         if(
             !newMovie.id ||
-            !newMovie.name ||
-            !newMovie.category ||
+            !newMovie.title ||
+            !newMovie.slug ||
+            !newMovie.genres ||
             !newMovie.description ||
-            !newMovie.image ||
-            newMovie.rating === undefined
+            !newMovie.posterUrl ||
+            !newMovie.releaseDate ||
+            newMovie.userRating === undefined
         ){
-            return res.status(400).json({message:"All required fields must be provided"})
+            return res.status(400).json({message:"Required fields missing"})
         }
 
         if(
-            typeof newMovie.name !== "string" ||
-            typeof newMovie.category !== "string" ||
+            typeof newMovie.title !== "string" ||
+            typeof newMovie.slug !== "string" ||
             typeof newMovie.description !== "string" ||
-            typeof newMovie.image !== "string"
+            typeof newMovie.posterUrl !== "string"
         ){
-            return res.status(400).json({message:"Name, category, description, and image must be strings"})
+            return res.status(400).json({message:"Invalid field types"})
         }
 
-        if(newMovie.name.trim() === "" || newMovie.category.trim() === "" || newMovie.description.trim() === "" || newMovie.image.trim() === ""){
-            return res.status(400).json({message:"Name, category, description, and image cannot be empty"})
+        if(!Array.isArray(newMovie.genres)){
+            return res.status(400).json({message:"Genres must be an array"})
         }
 
-        if(typeof newMovie.rating !== "number"){
-            return res.status(400).json({message:"Rating must be a number"})
+        if(typeof newMovie.userRating !== "number"){
+            return res.status(400).json({message:"User rating must be a number"})
         }
-
-        // create date automatically
-        newMovie.createdAt = new Date().toISOString().split("T")[0]
 
         const data = await readFile(DB_PATH)
 
@@ -72,9 +72,12 @@ const addMovie = async (req, res ) => {
             return res.status(400).json({message:"Movie with this ID already exists"})
         }
 
+        newMovie.createdAt = new Date().toISOString()
+        newMovie.updatedAt = new Date().toISOString()
+
         data.push(newMovie)
 
-        await writeFile(DB_PATH,data)
+        await writeFile(DB_PATH, data)
 
         res.status(201).json({
             message:"Movie added successfully",
@@ -86,79 +89,108 @@ const addMovie = async (req, res ) => {
     }
 }
 
-
 const updateMovie = async (req, res) => {
-    try {
+
+    try{
+
         const id = req.params.id
         const updatedData = req.body
         const data = await readFile(DB_PATH)
 
         const movieIndex = data.findIndex(movie => movie.id === id)
 
-        if (movieIndex === -1) {
-            return res.status(404).json({ message: "Movie not found" })
+        if(movieIndex === -1){
+            return res.status(404).json({message:"Movie not found"})
         }
 
-        if (updatedData.id !== undefined && updatedData.id !== id) {
-            return res.status(400).json({ message: "ID cannot be updated" })
+        if(updatedData.id !== undefined && updatedData.id !== id){
+            return res.status(400).json({message:"ID cannot be updated"})
         }
 
-        if (updatedData.rating !== undefined && typeof updatedData.rating !== "number") {
-            return res.status(400).json({ message: "Rating must be a number" })
+        if(updatedData.userRating !== undefined && typeof updatedData.userRating !== "number"){
+            return res.status(400).json({message:"User rating must be a number"})
         }
 
-        const stringFields = ["name", "category", "description", "image", "createdAt"]
+        if(updatedData.genres !== undefined && !Array.isArray(updatedData.genres)){
+            return res.status(400).json({message:"Genres must be an array"})
+        }
 
-        for (const field of stringFields) {
-            if (updatedData[field] !== undefined) {
-                if (typeof updatedData[field] !== "string" || updatedData[field].trim() === "") {
+        const stringFields = [
+            "title",
+            "slug",
+            "description",
+            "posterUrl",
+            "bannerUrl",
+            "director",
+            "language",
+            "country",
+            "ageRating",
+            "status",
+            "trailerUrl"
+        ]
+
+        for(const field of stringFields){
+
+            if(updatedData[field] !== undefined){
+
+                if(typeof updatedData[field] !== "string" || updatedData[field].trim() === ""){
                     return res.status(400).json({
-                        message: `${field} must be a non-empty string`
+                        message:`${field} must be a non-empty string`
                     })
                 }
+
             }
+
         }
 
-        // if noting was Updated, return an error
-        if (Object.keys(updatedData).length === 0) {
-            return res.status(400).json({ message: "No data provided for update" })
+        if(Object.keys(updatedData).length === 0){
+            return res.status(400).json({message:"No data provided for update"})
         }
+
+        updatedData.updatedAt = new Date().toISOString()
 
         data[movieIndex] = {
             ...data[movieIndex],
             ...updatedData
         }
 
-        await writeFile(DB_PATH, data)
+        await writeFile(DB_PATH,data)
 
         res.status(200).json({
-            message: "Movie updated successfully",
-            movie: data[movieIndex]
+            message:"Movie updated successfully",
+            movie:data[movieIndex]
         })
-    } catch (e) {
-        res.status(500).json({ message: e.message })
+
+    }catch(e){
+        res.status(500).json({message:e.message})
     }
 }
 
 const deleteMovie = async (req, res) => {
+
     try{
+
         const id = req.params.id
         const data = await readFile(DB_PATH)
+
         const movieIndex = data.findIndex(movie => movie.id === id)
 
-        if (movieIndex === -1) {
-            return res.status(404).json({ message: "Movie not found" })
+        if(movieIndex === -1){
+            return res.status(404).json({message:"Movie not found"})
         }
 
-        // remove the movie and write updated data
-        data.splice(movieIndex, 1) /// remove the movie at the found index
-        await writeFile(DB_PATH, data) 
+        data.splice(movieIndex,1)
+
+        await writeFile(DB_PATH,data)
+
         res.status(200).json({
-            message: "Movie deleted successfully",
-            })
+            message:"Movie deleted successfully"
+        })
+
     }catch(e){
-        res.status(500).json({message: e.message})
+        res.status(500).json({message:e.message})
     }
+
 }
 
 module.exports = {
